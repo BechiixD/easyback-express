@@ -1,0 +1,25 @@
+{
+  "name": "easyback-express",
+  "version": "1.0.0",
+  "description": "A simple tool to easily create the basis of your backend in Express.js.",
+  "homepage": "https://github.com/BechiixD/easyback-express#readme",
+  "bugs": {
+    "url": "https://github.com/BechiixD/easyback-express/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BechiixD/easyback-express.git"
+  },
+  "license": "MIT",
+  "author": "BechiixD",
+  "type": "module",
+  "main": "/frontend/src/main.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "zod": "4.1.4"
+  }
+}
