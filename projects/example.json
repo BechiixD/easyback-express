@@ -1,0 +1,21 @@
+{
+  "endpoints": [
+    {
+      "path": "/example",
+      "method": "GET",
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 1,
+            "title": "Example Movie",
+            "genre": ["Genre1", "Genre 2"]
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
