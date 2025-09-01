@@ -12,7 +12,7 @@ app.get("/example", (req, res) => {
   res.status(200 || 200);
   res.json({"title":"Example Movie","genre":["Genre1","Genre 2"]})
   res.setHeader("Content-Type", "application/json"); 
-res.setHeader("X-Custom-Header", "CustomValue"); 
+  res.setHeader("X-Custom-Header", "CustomValue"); 
 
   res.send("it works");
 });
@@ -42,7 +42,7 @@ app.put("/example/:id", (req, res) => {
 app.delete("/example/:id", (req, res) => {
   res.status(204 || 200);
   res.json({})
-  
+
   res.send("it works");
 });
   

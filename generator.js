@@ -27,13 +27,13 @@ const content = jsonFile.endpoints.map((endpoint) => {
 app.${[method.toLowerCase()]}("${path}", (req, res) => {
   res.status(${status} || 200);
   ${body ? `res.json(${JSON.stringify(body)})` : "// No response body defined"}
-  ${
-    headers
-      ? Object.entries(headers)
-          .map(([key, value]) => `res.setHeader("${key}", "${value}"); \n`)
-          .join("")
-      : ""
-  }
+${
+  headers
+    ? Object.entries(headers)
+        .map(([key, value]) => `  res.setHeader("${key}", "${value}"); \n`)
+        .join("")
+    : ""
+}
   res.send("it works");
 });
   `;
