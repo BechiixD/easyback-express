@@ -5,16 +5,49 @@
       "method": "GET",
       "response": {
         "status": 200,
-        "body": [
-          {
-            "title": "Example Movie",
-            "genre": ["Genre1", "Genre 2"]
-          }
-        ],
+        "body": {
+          "title": "Example Movie",
+          "genre": ["Genre1", "Genre 2"]
+        },
         "headers": {
           "Content-Type": "application/json",
           "X-Custom-Header": "CustomValue"
         }
+      }
+    },
+    {
+      "path": "/example",
+      "method": "POST",
+      "response": {
+        "status": 201,
+        "body": {
+          "message": "Example created successfully"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "path": "/example/:id",
+      "method": "PUT",
+      "response": {
+        "status": 200,
+        "body": {
+          "message": "Example with ID updated successfully"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "path": "/example/:id",
+      "method": "DELETE",
+      "response": {
+        "status": 204,
+        "body": {},
+        "headers": {}
       }
     }
   ]

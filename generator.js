@@ -2,19 +2,12 @@
 
 import express from "express";
 import { randomUUID } from "crypto";
-import fs from "fs";
 import path from "path";
 // import { template } from "/templates/server.js";
 //
 // Maybe this have to come from the frontend
 import jsonFile from "./projects/example.json" with { type: "json" };
 import { readFile, writeFile } from "fs/promises";
-import { join } from "path/win32";
-
-const app = express();
-
-app.disable("x-powered-by");
-app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 const BACKEND_URL = process.env.URL || `https://localhost:${PORT}`;
@@ -26,56 +19,39 @@ const template = await readFile("./templates/server.js", "utf-8", (err, c) => {
   }
   return c;
 });
-
-app.listen(PORT, () => {
-  console.log(`Server runing on ${BACKEND_URL}`);
-});
 const content = jsonFile.endpoints.map((endpoint) => {
   const { method, path, response } = endpoint;
   const { body, status, headers } = response;
 
-  // app[method.toLowerCase()](`${path}`, (req, res) => {
-  //   res.status(status || 200);
-  //   if (body) {
-  //     const responseBody = JSON.parse(
-  //       JSON.stringify(body).replace(/<UUID>/g, randomUUID()),
-  //     );
-  //     res.json(responseBody);
-  //   }
-  //   if (headers) {
-  //     Object.entries(headers).map(([key, value]) => {
-  //       res.setHeader(key, value);
-  //     });
-  //   }
-  //   console.log(headers);
-  //   res.send("it works");
-  // });
-
   return `
-  app${[method.toLowerCase()]}(${path}, (req, res) =>
-    res.status(${status} || 200);
-    if (${body}) {
-      const responseBody = JSON.parse(
-        JSON.stringify(${body}).replace(/<UUID>/g, ${randomUUID()})
-      );
-      res.json(responseBody);
-    }
-    if (${headers}) {
-      Object.entries(${headers}).map(([key, value]) => {
-        res.setHeader(key, value);
-      });
-    }
-    res.send("it works");
-    }
+app.${[method.toLowerCase()]}("${path}", (req, res) => {
+  res.status(${status} || 200);
+  ${body ? `res.json(${JSON.stringify(body)})` : "// No response body defined"}
+  ${
+    headers
+      ? Object.entries(headers)
+          .map(([key, value]) => `res.setHeader("${key}", "${value}"); \n`)
+          .join("")
+      : ""
+  }
+  res.send("it works");
+});
   `;
 });
 
-const newContent = await readFile(
-  "./templates/server.js",
-  "utf-8",
-  (err, c) => {
-    return c.replace("/// ENDPOINTS_GENERADOS_AQUI", content);
-  },
-);
+async function replaceCode() {
+  try {
+    let template = await readFile("./templates/server.js", "utf-8");
+    let newContent = template.replace("// {{ENDPOINTS}}", content.join("\n\n"));
+    await writeFile("./server.js", newContent);
+    console.log("Archivo generado con endpoints");
+    return newContent;
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
 
-const newFilePath = join("output", "project", "server.js");
+const newContent = await replaceCode();
+
+const newFilePath = path.join("output", "project", "server.js");
+await writeFile(newFilePath, newContent);

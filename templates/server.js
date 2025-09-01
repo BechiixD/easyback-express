@@ -2,6 +2,11 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
-// ENDPOINTS_GENERADOS_AQUI
+const PORT = process.env.PORT || 3000;
+const BACKEND_URL = process.env.URL || `https://localhost:${PORT}`;
 
-app.listen(3000, () => console.log("Server running"));
+// {{MIDDLEWARES}}
+
+// {{ENDPOINTS}}
+
+app.listen(PORT, () => console.log(`Server running on ${BACKEND_URL}`));
