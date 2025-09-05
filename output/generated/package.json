@@ -1,0 +1,20 @@
+{
+  "name": "generated-express-server",
+  "version": "1.0.0",
+  "description": "Generated Express server from EasyBack",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "easyback"
+  ],
+  "author": "EasyBack Generator"
+}

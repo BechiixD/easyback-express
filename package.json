@@ -15,11 +15,20 @@
   "type": "module",
   "main": "/frontend/src/main.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.js"
+    "test": "./test-connection.sh",
+    "start": "node ./src/index.js",
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"cd frontend && npm run dev\"",
+    "install-all": "npm install && cd frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "test-connection": "./test-connection.sh"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "5.1.0",
     "zod": "4.1.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
