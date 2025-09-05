@@ -1,1 +1,82 @@
 @import "tailwindcss";
+
+/* Custom styles for better layout and UX */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Smooth scrolling for header overflow */
+.headers-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #e5e7eb #f9fafb;
+}
+
+.headers-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.headers-scroll::-webkit-scrollbar-track {
+    background: #f9fafb;
+    border-radius: 2px;
+}
+
+.headers-scroll::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 2px;
+}
+
+.headers-scroll::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+}
+
+/* Ensure grid cards have consistent height */
+.endpoint-card {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sticky form positioning */
+.sticky-form {
+    position: sticky;
+    top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+    .sticky-form {
+        position: static;
+    }
+}
+
+/* 4-column layout adjustments */
+@media (max-width: 1024px) {
+    .grid-cols-1.lg\:grid-cols-4 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .grid-cols-1.lg\:grid-cols-4 > .lg\:col-span-2 {
+        grid-column: span 3 / span 3;
+    }
+    .grid-cols-1.lg\:grid-cols-4 > .lg\:col-span-1:last-child {
+        grid-column: span 1 / span 1;
+    }
+}
+
+/* Button enhancements */
+.generate-button-container {
+    min-height: 400px;
+}
+
+/* Mobile-first responsive grid */
+@media (max-width: 768px) {
+    .lg\:col-span-1,
+    .lg\:col-span-2 {
+        grid-column: span 1 / span 1;
+    }
+}

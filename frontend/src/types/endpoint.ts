@@ -5,6 +5,7 @@ export interface Endpoint {
   description?: string;
   parameters?: EndpointParameter[];
   responses?: EndpointResponse[];
+  headers?: EndpointHeader[];
 }
 
 export interface EndpointParameter {
@@ -12,4 +13,15 @@ export interface EndpointParameter {
   type: "string" | "number" | "boolean";
   required: boolean;
   description?: string;
+}
+
+export interface EndpointHeader {
+  id: string;
+  key: string;
+  value: string;
+}
+
+export interface EndpointResponse {
+  status: number;
+  description: string;
 }

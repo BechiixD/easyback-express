@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Endpoint } from "../types/endpoint";
+import { Endpoint, EndpointHeader } from "../types/endpoint";
 
 export function useEndpointForm() {
   const [formData, setFormData] = useState<Partial<Endpoint>>({
     path: "",
     method: "GET",
     description: "",
+    headers: [],
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -25,6 +26,38 @@ export function useEndpointForm() {
     }
   };
 
+  const addHeader = () => {
+    const newHeader: EndpointHeader = {
+      id: crypto.randomUUID(),
+      key: "",
+      value: "",
+    };
+    setFormData((prev) => ({
+      ...prev,
+      headers: [...(prev.headers ?? []), newHeader],
+    }));
+  };
+
+  const updateHeader = (
+    id: string,
+    field: keyof EndpointHeader,
+    value: string,
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      headers: (prev.headers ?? []).map((header) =>
+        header.id === id ? { ...header, [field]: value } : header,
+      ),
+    }));
+  };
+
+  const removeHeader = (id: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      headers: (prev.headers ?? []).filter((header) => header.id !== id),
+    }));
+  };
+
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
@@ -36,9 +69,18 @@ export function useEndpointForm() {
   };
 
   const resetForm = () => {
-    setFormData({ path: "", method: "GET", description: "" });
+    setFormData({ path: "", method: "GET", description: "", headers: [] });
     setErrors({});
   };
 
-  return { formData, errors, updateField, validateForm, resetForm };
+  return {
+    formData,
+    errors,
+    updateField,
+    validateForm,
+    resetForm,
+    addHeader,
+    updateHeader,
+    removeHeader,
+  };
 }
